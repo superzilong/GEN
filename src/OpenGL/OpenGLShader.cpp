@@ -38,6 +38,25 @@ namespace gen
 		m_name = filepath.substr(lastSlash, lastDot - lastSlash);
 	}
 
+	OpenGLShader::OpenGLShader(const std::string& vsFile, const std::string& fsFile)
+	{
+		std::string vsSource = ReadFile(vsFile);
+		std::string fsSource = ReadFile(fsFile);
+		const std::unordered_map<GLenum, std::string> shaderSources =
+		{
+			{GL_VERTEX_SHADER, vsSource},
+			{GL_FRAGMENT_SHADER, fsSource}
+		};
+		Compile(shaderSources);
+
+		size_t lastSlash = vsFile.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		auto lastDot = vsFile.rfind('.');
+		lastDot = lastDot == std::string::npos ? vsFile.size() : lastDot;
+		auto count = lastDot - lastSlash;
+		m_name = vsFile.substr(lastSlash, lastDot - lastSlash);
+	}
+
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		: m_name(name)
 	{
@@ -150,8 +169,13 @@ namespace gen
 		return std::make_shared<OpenGLShader>(filepath);
 	}
 
+	SP<OpenGLShader> OpenGLShader::Create(const std::string& vsFile, const std::string& fsFile)
+	{
+		return std::make_shared<OpenGLShader>(vsFile, fsFile);
+	}
+
 	SP<OpenGLShader> OpenGLShader::Create(const std::string& name, const std::string& veterSrc,
-		const std::string& fragmentSrc)
+	                                      const std::string& fragmentSrc)
 	{
 		return std::make_shared<OpenGLShader>(name, veterSrc, fragmentSrc);
 	}

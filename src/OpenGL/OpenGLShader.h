@@ -15,6 +15,7 @@ namespace gen
 	{
 	public:
 		OpenGLShader(const std::string& filepath);
+		OpenGLShader(const std::string& vsFile, const std::string& fsFile);
 		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 		virtual ~OpenGLShader();
 
@@ -43,6 +44,7 @@ namespace gen
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 
 		static SP<OpenGLShader> Create(const std::string& filepath);
+		static SP<OpenGLShader> Create(const std::string& vsFile, const std::string& fsFile);
 		static SP<OpenGLShader> Create(const std::string& name, const std::string& veterSrc, const std::string& fragmentSrc );
 	private:
 		std::string ReadFile(const std::string& filepath);
