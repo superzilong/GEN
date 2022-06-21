@@ -65,6 +65,16 @@ namespace gen
 		}
 	}
 
+	SP<OpenGLVertextBuffer> OpenGLVertextBuffer::create(uint32_t size)
+	{
+		return std::make_shared<OpenGLVertextBuffer>(size);
+	}
+
+	SP<OpenGLVertextBuffer> OpenGLVertextBuffer::create(float* vertices, uint32_t size)
+	{
+		return std::make_shared<OpenGLVertextBuffer>(vertices, size);
+	}
+
 	OpenGLVertextBuffer::OpenGLVertextBuffer(uint32_t size)
 	{
 		glCreateBuffers(1, &m_renderID);
@@ -100,7 +110,12 @@ namespace gen
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
+	SP<OpenGLElementBuffer> OpenGLElementBuffer::create(uint32_t* indices, uint32_t count)
+	{
+		return std::make_shared<OpenGLElementBuffer>(indices, count);
+	}
+
+	OpenGLElementBuffer::OpenGLElementBuffer(uint32_t* indices, uint32_t count) : m_count(count)
 	{
 		// GL_ELEMENT_ARRAY_BUFFER is not valid without an actively bound VAO
 		// Binding with GL_ARRAY_BUFFER allows the data to be loaded regardless of VAO state. 
@@ -109,17 +124,17 @@ namespace gen
 		glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 
-	OpenGLIndexBuffer::~OpenGLIndexBuffer()
+	OpenGLElementBuffer::~OpenGLElementBuffer()
 	{
 		glDeleteBuffers(1, &m_renderID);
 	}
 
-	void OpenGLIndexBuffer::Bind() const
+	void OpenGLElementBuffer::Bind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_renderID);
 	}
 
-	void OpenGLIndexBuffer::Unbind() const
+	void OpenGLElementBuffer::Unbind() const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}

@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <string>
 #include "Core/Assert.h"
+#include "Core/Base.h"
 
 typedef unsigned int GLenum;
 
@@ -77,6 +78,8 @@ namespace gen
 	class OpenGLVertextBuffer
 	{
 	public:
+		static SP<OpenGLVertextBuffer> create(uint32_t size);
+		static SP<OpenGLVertextBuffer> create(float* vertices, uint32_t size);
 		OpenGLVertextBuffer(uint32_t size);
 		OpenGLVertextBuffer(float* vertices, uint32_t size);
 		virtual ~OpenGLVertextBuffer();
@@ -87,16 +90,18 @@ namespace gen
 		void SetData(const void* data, uint32_t size);
 
 		const BufferLayout& GetLayout() const { return m_layout; }
+		void SetLayout(const BufferLayout& layout) { m_layout = layout; }
 	private:
 		uint32_t m_renderID;
 		BufferLayout m_layout;
 	};
 
-	class OpenGLIndexBuffer
+	class OpenGLElementBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
-		~OpenGLIndexBuffer();
+		static SP<OpenGLElementBuffer> create(uint32_t* indices, uint32_t count);
+		OpenGLElementBuffer(uint32_t* indices, uint32_t count);
+		~OpenGLElementBuffer();
 
 		void Bind() const;
 		void Unbind() const;

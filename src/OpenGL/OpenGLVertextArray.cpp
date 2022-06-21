@@ -93,11 +93,11 @@ namespace gen
 
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const SP<OpenGLIndexBuffer>& indexBuffer)
+	void OpenGLVertexArray::SetElementBuffer(const SP<OpenGLElementBuffer>& elementBuffer)
 	{
 		glBindVertexArray(m_renderID);
-		indexBuffer->Bind();
-		m_indexBuufer = indexBuffer;
+		elementBuffer->Bind();
+		m_elementBuffer = elementBuffer;
 	}
 
 	const std::vector<SP<OpenGLVertextBuffer>>& OpenGLVertexArray::GetVertexBuffers()
@@ -105,9 +105,9 @@ namespace gen
 		return m_vertexBuffers;
 	}
 
-	const SP<OpenGLIndexBuffer>& OpenGLVertexArray::GetIndexBuffer()
+	const SP<OpenGLElementBuffer>& OpenGLVertexArray::GetElementBuffer()
 	{
-		return m_indexBuufer;
+		return m_elementBuffer;
 	}
 
 	SP<OpenGLVertexArray> OpenGLVertexArray::Create()
