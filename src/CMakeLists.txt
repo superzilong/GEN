@@ -1,9 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
 
-# include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
-set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
-set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(glfw3 REQUIRED CONFIG)
 find_package(glad REQUIRED CONFIG)
