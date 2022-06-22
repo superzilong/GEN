@@ -11,7 +11,7 @@ GEN is standing for `Graphic Engine`. This is my practice project after learning
 mkdir build && cd build
 conan install .. -s build_type=Debug
 cmake ..
-start GEN.slns
+start GEN.sln
 ```
 
 This project use [conan](https://docs.conan.io/en/latest/using_packages/workflows.html#multi-configuration) as the c++ project manager.
