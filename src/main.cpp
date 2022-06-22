@@ -227,8 +227,8 @@ int main(int argc, char* argv[])
 
 	// load textures (we now use a utility function to keep the code more organized)
 	// -----------------------------------------------------------------------------
-	unsigned int diffuseMap = loadTexture("./Cases/Multilights/resources/textures/container2.png");
-	unsigned int specularMap = loadTexture("/Cases/Multilights/resources/textures/container2_specular.png");
+	unsigned int diffuseMap = loadTexture("./Resources/textures/container2.png");
+	unsigned int specularMap = loadTexture("/Resources/textures/container2_specular.png");
 
 	// shader configuration
 	// --------------------
